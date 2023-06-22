@@ -161,15 +161,61 @@ class RightSide:
         w=self.size[0]*SIZE-SIZE//2
         x=self.x+16+3*(w//5+1)
         y=self.y+SIZE*3+32+16
+
+        #right side black oval buttons
         for i in range(2):
             pg.draw.rect(self.window,colors['black'][0],[x+i*SIZE,y,SIZE-12,12],border_radius=16)
             pg.draw.rect(self.window,(0,0,0),[x+i*SIZE,y,SIZE-12,12],width=2,border_radius=16)
         
+
+        #left side square white buttons
         x=self.x+16+0*(w//5+1)
-        y=self.y+SIZE*3+32+16
+        y=self.y+SIZE*4+16
         for i in range(2):
-            pg.draw.rect(self.window,colors['black'][0],[x+i*SIZE,y,SIZE-12,12],border_radius=16)
-            pg.draw.rect(self.window,(0,0,0),[x+i*SIZE,y,SIZE-12,12],width=2,border_radius=16)
+            bl,tl,tr,br = 4,4,4,4
+            if i==1:
+                bl= 0
+                tl =0
+            else:
+                tr=0
+                br=0
+            pg.draw.rect(self.window,colors['white'][0],[x+i*(32+12-2),y,32+12,32+8],border_radius=4,border_bottom_left_radius=bl,border_bottom_right_radius=br,border_top_left_radius=tl,border_top_right_radius=tr)
+            pg.draw.rect(self.window,colors['white'][1],[x+i*(32+12-2),y+32+2,32+12,4],border_radius=4,border_bottom_left_radius=bl,border_bottom_right_radius=br,border_top_left_radius=tl,border_top_right_radius=tr)
+            pg.draw.rect(self.window,(0,0,0),[x+i*(32+12-2),y,32+12,32+8],width=2,border_radius=4,border_bottom_left_radius=bl,border_bottom_right_radius=br,border_top_left_radius=tl,border_top_right_radius=tr)
+
+
+        x = self.x+32+4+4*(w//5+1)
+        y = self.y+SIZE*4+32+16
+        #right side yellow circle
+        color='yellow'
+        #Main circle
+        circle = draw_circle(16,colors[color][0])
+        window.blit(circle,circle.get_rect(center=(x,y)))
+        #Shade circle
+        circle = draw_circle(12,colors[color][1])
+        window.blit(circle,circle.get_rect(center=(x+2,y+2)))
+        #Highlight circle 1
+        circle = draw_circle(8,colors[color][0])
+        window.blit(circle,circle.get_rect(center=(x-2,y-2)))
+        #Highlight circle 2
+        circle = draw_circle(4,colors[color][2])
+        window.blit(circle,circle.get_rect(center=(x-4,y-4)))
+        #Black outline
+        circle = draw_circle(16,(0,0,0),width=2)
+        window.blit(circle,circle.get_rect(center=(x,y)))
+
+    
+    def type_display(self):
+        w=self.size[0]*SIZE-SIZE//2
+        x=self.x+16+0*(w//5+1)+8
+        y=self.y+SIZE*5+16-2
+        
+        gap = SIZE*2+16
+        for i in range(2):
+            pg.draw.rect(self.window,colors['black'][0],[x+i*gap,y,SIZE+32+16,32+4],border_radius=4)
+            pg.draw.rect(self.window,(0,0,0),[x+i*gap,y,SIZE+32+16,32+4],width=2,border_radius=4)
+
+
 
     def draw(self):
         self.background()
@@ -185,6 +231,7 @@ class RightSide:
 
         self.misc_buttons()
         
+        self.type_display()
     
 
 
