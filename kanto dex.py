@@ -38,9 +38,88 @@ class LeftInterior:
         self.y = y
 
 
+    def black_plus(self):
+        #black plus shadow
+        #bottom rectangle
+        x = self.x+SIZE*5-16
+        y = self.y+SIZE*6+32+16+6
+        pg.draw.rect(self.window,colors['black'][0],[x,y,32+4,32+8+8],border_bottom_left_radius=8,border_bottom_right_radius=8)
+        pg.draw.rect(self.window,(0,0,0),[x,y,32+4,32+8+8],width=2,border_bottom_left_radius=8,border_bottom_right_radius=8)
+
+        #left rectangle
+        x = self.x+SIZE*5-32-16
+        y = self.y+SIZE*6+32
+        pg.draw.rect(self.window,colors['black'][0],[x,y,32+8,32+4+8],border_top_left_radius=8,border_bottom_left_radius=8)
+        pg.draw.rect(self.window,(0,0,0),[x,y,32+8,32+4+8],width=2,border_top_left_radius=8,border_bottom_left_radius=8)
+
+        #right rectangle
+        x = self.x+SIZE*5+16-4
+        y = self.y+SIZE*6+32
+        pg.draw.rect(self.window,colors['black'][0],[x,y,32+8,32+4+8],border_top_right_radius=8,border_bottom_right_radius=8)
+        pg.draw.rect(self.window,(0,0,0),[x,y,32+8,32+4+8],width=2,border_top_right_radius=8,border_bottom_right_radius=8)
+
+        #top rectangle
+        x = self.x+SIZE*5-16
+        y = self.y+SIZE*6+4
+        pg.draw.rect(self.window,colors['black'][0],[x,y,32+4+4,32+4],border_top_left_radius=8,border_top_right_radius=8)
+        pg.draw.rect(self.window,(0,0,0),[x,y,32+4+4,32+4],width=2,border_top_left_radius=8,border_top_right_radius=8)
+
+        #the black plus
+        
+
+        #bottom rectangle
+        x = self.x+SIZE*5-16
+        y = self.y+SIZE*6+32+16+6
+        pg.draw.rect(self.window,colors['black'][1],[x,y,32+4,32+8],border_bottom_left_radius=8,border_bottom_right_radius=8)
+        pg.draw.rect(self.window,(0,0,0),[x,y,32+4,32+8],width=2,border_bottom_left_radius=8,border_bottom_right_radius=8)
+
+        #left rectangle
+        x = self.x+SIZE*5-32-16
+        y = self.y+SIZE*6+32
+        pg.draw.rect(self.window,colors['black'][1],[x,y,32+8,32+4],border_top_left_radius=8,border_bottom_left_radius=8)
+        pg.draw.rect(self.window,(0,0,0),[x,y,32+8,32+4],width=2,border_top_left_radius=8,border_bottom_left_radius=8)
+
+        #right rectangle
+        x = self.x+SIZE*5+16-4
+        y = self.y+SIZE*6+32
+        pg.draw.rect(self.window,colors['black'][1],[x,y,32+8,32+4],border_top_right_radius=8,border_bottom_right_radius=8)
+        pg.draw.rect(self.window,(0,0,0),[x,y,32+8,32+4],width=2,border_top_right_radius=8,border_bottom_right_radius=8)
+
+        #top rectangle
+        x = self.x+SIZE*5-16
+        y = self.y+SIZE*6+4
+        pg.draw.rect(self.window,colors['black'][1],[x,y,32+4,32+8],border_top_left_radius=8,border_top_right_radius=8)
+        pg.draw.rect(self.window,(0,0,0),[x,y,32+4,32+8],width=2,border_top_left_radius=8,border_top_right_radius=8)
+        
+        #circle
+        x = self.x+SIZE*5
+        y = self.y+SIZE*6+32+16
+        circle = draw_circle(16+8,colors['black'][1])
+        window.blit(circle,circle.get_rect(center=(x,y)))
+
+
+        #elipse in the plus
+        w=12
+        h = 16
+        x = self.x+SIZE*5-w//2
+        y = self.y+SIZE*6+32+16 - h//2
+        pg.draw.ellipse(self.window,(0,0,0),[x,y,w,h],width=2)
+
+
+
     def black_buttons(self):
-        pass
-    
+        #left circle
+        x = self.x+SIZE
+        y = self.y+SIZE*6+16
+
+        circle = draw_circle(16+8,colors['black'][1])
+        window.blit(circle,circle.get_rect(center=(x,y)))
+        circle = draw_circle(16+8,(0,0,0),width=2)
+        window.blit(circle,circle.get_rect(center=(x,y)))
+
+
+        self.black_plus()
+        
     def misc_buttons(self):
         #capsule buttons
         x = self.x+SIZE+32+16
