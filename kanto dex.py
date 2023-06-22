@@ -30,6 +30,60 @@ def draw_circle(radius,color,width=0,draw_top_right=True,draw_top_left=True,
     return surf
 
 
+
+class LeftInterior:
+    def __init__(self,window,x,y):
+        self.window = window
+        self.x = x
+        self.y = y
+
+    
+    def displays(self):
+        pg.draw.rect(self.window,colors['black'][0],[self.x+SIZE+16,self.y+SIZE*3,SIZE*3+32,SIZE*2],border_radius=8)
+       
+
+    
+    def display_exterior(self):
+
+        #shadow connection to wedge on right
+        pg.draw.rect(self.window,colors['white'][1],[self.x+SIZE*2-32,self.y+SIZE*4+32,SIZE*3+32+16,SIZE+8],border_bottom_right_radius=8)
+        pg.draw.rect(self.window,(0,0,0),[self.x+SIZE*2-32,self.y+SIZE*4+32,SIZE*3+32+16,SIZE+8],width=2,border_bottom_right_radius=8)
+
+
+        #rectangle to cover shadow 
+        pg.draw.rect(self.window,colors['white'][1],[self.x+SIZE-16,self.y+SIZE*4+32*2,32,8])
+        pg.draw.line(self.window,(0,0,0),(self.x+SIZE-16,self.y+SIZE*4+32*2),(self.x+SIZE-16,self.y+SIZE*4+32*2+8),width=2)
+        pg.draw.line(self.window,colors['white'][1],(self.x+SIZE*2-32,self.y+SIZE*5+32+6),(self.x+SIZE*2-32,self.y+SIZE*5+32-6),width=2)
+
+        #shadow wedge
+        pg.draw.polygon(self.window,colors['white'][1],[(self.x+SIZE-16,self.y+SIZE*4+32*2+8),(self.x+SIZE*2-32,self.y+SIZE*5+32-1+8),(self.x+SIZE*2-32,self.y+SIZE*4+32*2)])
+        pg.draw.line(self.window,(0,0,0),(self.x+SIZE-16,self.y+SIZE*4+32*2+8),(self.x+SIZE*2-32,self.y+SIZE*5+32-1+8),width=2)
+       
+
+        #big white bg
+        pg.draw.rect(self.window,colors['white'][0],[self.x+SIZE-16,self.y+SIZE*2+32,SIZE*4+32,SIZE*2+32],border_top_left_radius=8,border_top_right_radius=8)
+        pg.draw.rect(self.window,(0,0,0),[self.x+SIZE-16,self.y+SIZE*2+32,SIZE*4+32,SIZE*2+32],width=2,border_top_left_radius=8,border_top_right_radius=8)
+
+        #connection to wedge on right
+        pg.draw.rect(self.window,colors['white'][0],[self.x+SIZE*2-32,self.y+SIZE*4+32,SIZE*3+32+16,SIZE],border_bottom_right_radius=8)
+        pg.draw.rect(self.window,(0,0,0),[self.x+SIZE*2-32,self.y+SIZE*4+32,SIZE*3+32+16,SIZE],width=2,border_bottom_right_radius=8)
+
+        #wedge
+        pg.draw.polygon(self.window,colors['white'][0],[(self.x+SIZE-16,self.y+SIZE*4+32*2),(self.x+SIZE*2-32,self.y+SIZE*5+32-1),(self.x+SIZE*2-32,self.y+SIZE*4+32*2)])
+        pg.draw.line(self.window,(0,0,0),(self.x+SIZE-16,self.y+SIZE*4+32*2),(self.x+SIZE*2-32,self.y+SIZE*5+32-1),width=2)
+
+
+        #rectangles to cover up the outlines
+        pg.draw.rect(self.window,colors['white'][0],[self.x+SIZE*2-32-2,self.y+SIZE*4+32,SIZE*3+32+16,16])
+        pg.draw.rect(self.window,colors['white'][0],[self.x+SIZE-16+2,self.y+SIZE*4+32+16,32*2,16])
+        pg.draw.rect(self.window,colors['white'][0],[self.x+SIZE*2-32,self.y+SIZE*5,32*2,30])
+
+
+    def draw(self):
+        self.display_exterior()
+
+        self.displays()
+
 class LeftSide:
     def __init__(self,window,x,y,size=box_sizes[0]):
         self.window = window
@@ -117,11 +171,17 @@ class RightSide:
         self.size = size
 
     def background(self,color=colors['maroon'][0]):
+        #shadow
+        pg.draw.rect(self.window,colors['maroon'][1],[self.x-1,self.y,self.size[0]*SIZE,self.size[1]*SIZE+8],border_radius=16,border_bottom_left_radius=0,border_top_left_radius=0)
+        #shadow background
+        pg.draw.rect(self.window,(0,0,0),[self.x-1,self.y,self.size[0]*SIZE,self.size[1]*SIZE+8],width=2,border_radius=16,border_bottom_left_radius=0,border_top_left_radius=0)
+
         #main background
         pg.draw.rect(self.window,color,[self.x,self.y,self.size[0]*SIZE,self.size[1]*SIZE],border_radius=16,border_bottom_left_radius=0,border_top_left_radius=0)
         #Outline
         pg.draw.rect(self.window,(0,0,0),[self.x,self.y,self.size[0]*SIZE,self.size[1]*SIZE],width=2,border_radius=16,border_bottom_left_radius=0,border_top_left_radius=0)
 
+        
 
         
 
@@ -243,6 +303,9 @@ def draw():
     #Left Side Box
     ls = LeftSide(window,X,Y)
     ls.draw()
+
+    li = LeftInterior(window,X,Y)
+    li.draw()
     
 
     #Right Side Box
