@@ -11,14 +11,16 @@ colors={
 
 }
 
-WIDTH = 1000
-HEIGHT = 800
-pg.init()
-window = pg.display.set_mode((WIDTH,HEIGHT))
-
 SIZE = 64
 
 box_sizes = [[6,8],[5,6]]
+
+WIDTH = (box_sizes[0][0]+box_sizes[1][0])*SIZE
+HEIGHT = box_sizes[0][1]*SIZE
+pg.init()
+window = pg.display.set_mode((WIDTH,HEIGHT),pg.SRCALPHA)
+
+
 
 
 
@@ -427,8 +429,8 @@ class RightSide:
 
 def draw():
     window.fill(-1)
-    X=100
-    Y=100
+    X=0
+    Y=0
 
     #Left Side Box
     ls = LeftSide(window,X,Y)
@@ -448,6 +450,7 @@ def loop():
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
+                pg.image.save(window,'image.png')
                 pg.quit()
                 return
 
