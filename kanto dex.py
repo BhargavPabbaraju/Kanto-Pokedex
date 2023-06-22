@@ -7,6 +7,7 @@ colors={
 'white':[(222,222,222),(163,164,164)],
 'red':[(255,0,41),(157,0,27),(255,141,159)],
 'green':[(79,174,93),(52,112,61),(178,219,184)],
+'black':[(35,35,35),(0,49,43)],
 
 }
 
@@ -116,11 +117,14 @@ class RightSide:
         self.size = size
 
     def background(self,color=colors['maroon'][0]):
+        #main background
         pg.draw.rect(self.window,color,[self.x,self.y,self.size[0]*SIZE,self.size[1]*SIZE],border_radius=16,border_bottom_left_radius=0,border_top_left_radius=0)
-
         #Outline
         pg.draw.rect(self.window,(0,0,0),[self.x,self.y,self.size[0]*SIZE,self.size[1]*SIZE],width=2,border_radius=16,border_bottom_left_radius=0,border_top_left_radius=0)
-    
+
+
+        
+
     def top_lines(self):
         
 
@@ -137,13 +141,49 @@ class RightSide:
         pg.draw.lines(window,(0,0,0),False,lines_points,width=2)
 
         
+    def blue_grid(self):
+        w = self.size[0]*SIZE-SIZE//2
+        pg.draw.rect(self.window,colors['blue'][0],[self.x+16,self.y+SIZE*2+32,w,SIZE+8])
+        #shadow
+        pg.draw.rect(self.window,colors['blue'][1],[self.x+16,self.y+SIZE*2+32+SIZE,w,6])
+        #grid outline
+        pg.draw.rect(self.window,(0,0,0),[self.x+16,self.y+SIZE*2+32,w,SIZE+8],width=2)
+        #horizontal grid line
+        pg.draw.line(window,(0,0,0),(self.x+16,self.y+SIZE*2+32+SIZE//2+4),(self.x+16+w-2,self.y+SIZE*2+32+SIZE//2+4),width=2)
+
+        #vertical grid lines
+        no = 5
+        for i in range(no):
+            pg.draw.line(window,(0,0,0),(self.x+16+i*(w//no+1),self.y+SIZE*2+32),(self.x+16+i*(w//no+1),self.y+SIZE*2+32+SIZE+6),width=2)
+
+
+    def misc_buttons(self):
+        w=self.size[0]*SIZE-SIZE//2
+        x=self.x+16+3*(w//5+1)
+        y=self.y+SIZE*3+32+16
+        for i in range(2):
+            pg.draw.rect(self.window,colors['black'][0],[x+i*SIZE,y,SIZE-12,12],border_radius=16)
+            pg.draw.rect(self.window,(0,0,0),[x+i*SIZE,y,SIZE-12,12],width=2,border_radius=16)
         
+        x=self.x+16+0*(w//5+1)
+        y=self.y+SIZE*3+32+16
+        for i in range(2):
+            pg.draw.rect(self.window,colors['black'][0],[x+i*SIZE,y,SIZE-12,12],border_radius=16)
+            pg.draw.rect(self.window,(0,0,0),[x+i*SIZE,y,SIZE-12,12],width=2,border_radius=16)
 
     def draw(self):
         self.background()
 
         self.top_lines()
 
+        #Display screen
+        pg.draw.rect(self.window,colors['black'][0],[self.x+16,self.y+SIZE,self.size[0]*SIZE-SIZE//2,SIZE+16],border_radius=4)
+        #outline
+        pg.draw.rect(self.window,(0,0,0),[self.x+16,self.y+SIZE,self.size[0]*SIZE-SIZE//2,SIZE+16],width=2,border_radius=4)
+        
+        self.blue_grid()
+
+        self.misc_buttons()
         
     
 
