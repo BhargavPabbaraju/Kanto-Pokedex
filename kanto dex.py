@@ -38,9 +38,37 @@ class LeftInterior:
         self.y = y
 
     
-    def displays(self):
+    def display(self):
+        #black display
         pg.draw.rect(self.window,colors['black'][0],[self.x+SIZE+16,self.y+SIZE*3,SIZE*3+32,SIZE*2],border_radius=8)
-       
+        pg.draw.rect(self.window,(0,0,0),[self.x+SIZE+16,self.y+SIZE*3,SIZE*3+32,SIZE*2],width=2,border_radius=8)
+
+        #top red circles
+        x = self.x+SIZE*2+32+8
+        y = self.y+SIZE*3-16
+        gap = 32+16
+        for i in range(2):
+            circle = draw_circle(7,colors['red'][0])
+            window.blit(circle,circle.get_rect(center=(x+i*gap,y)))
+
+            circle = draw_circle(7,(0,0,0),width=2)
+            window.blit(circle,circle.get_rect(center=(x+i*gap,y)))
+
+        #bottom red circle
+        x = self.x+SIZE+32+16
+        y = self.y+SIZE*3+SIZE*2+16-2
+        circle = draw_circle(10,colors['red'][0])
+        window.blit(circle,circle.get_rect(center=(x,y)))
+        circle = draw_circle(10,(0,0,0),width=2)
+        window.blit(circle,circle.get_rect(center=(x,y)))
+
+        #vertical bars
+        x=self.x+SIZE+16+SIZE*3
+        y=self.y+SIZE*3+SIZE*2+4+1
+        gap = 6
+        for i in range(4):
+            pg.draw.rect(self.window,colors['black'][1],[x,y+i*gap,32,2],border_radius=16)
+
 
     
     def display_exterior(self):
@@ -82,7 +110,7 @@ class LeftInterior:
     def draw(self):
         self.display_exterior()
 
-        self.displays()
+        self.display()
 
 class LeftSide:
     def __init__(self,window,x,y,size=box_sizes[0]):
