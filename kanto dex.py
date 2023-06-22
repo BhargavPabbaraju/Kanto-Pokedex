@@ -6,7 +6,7 @@ colors={
 'yellow':[(253,223,24),(159,139,15),(255,242,158)],
 'white':[(222,222,222),(163,164,164)],
 'red':[(255,0,41),(157,0,27),(255,141,159)],
-'green':[(79,174,93),(52,112,61),(178,219,184)],
+'green':[(79,174,93),(52,112,61),(178,219,184),(81,174,95)],
 'black':[(35,35,35),(0,49,43)],
 
 }
@@ -36,6 +36,25 @@ class LeftInterior:
         self.window = window
         self.x = x
         self.y = y
+
+
+    def black_buttons(self):
+        pass
+    
+    def misc_buttons(self):
+        #capsule buttons
+        x = self.x+SIZE+32+16
+        y = self.y+SIZE*6-8
+        
+        pg.draw.rect(self.window,colors['red'][0],[x,y,SIZE-16,8],border_radius=16)
+        pg.draw.rect(self.window,(0,0,0),[x,y,SIZE-16,8],width=2,border_radius=16)
+
+        pg.draw.rect(self.window,colors['blue'][1],[x+SIZE+16,y,SIZE-16,8],border_radius=16)
+        pg.draw.rect(self.window,(0,0,0),[x+SIZE+16,y,SIZE-16,8],width=2,border_radius=16)
+
+        #green display
+        pg.draw.rect(self.window,colors['green'][3],[x,y+32,SIZE*2,SIZE+4],border_radius=8)
+        pg.draw.rect(self.window,(0,0,0),[x,y+32,SIZE*2,SIZE+4],width=2,border_radius=8)
 
     
     def display(self):
@@ -111,6 +130,10 @@ class LeftInterior:
         self.display_exterior()
 
         self.display()
+
+        self.misc_buttons()
+
+        self.black_buttons()
 
 class LeftSide:
     def __init__(self,window,x,y,size=box_sizes[0]):
